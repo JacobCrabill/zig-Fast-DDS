@@ -1,12 +1,12 @@
 .{
     .name = .zig_fastdds,
     .fingerprint = 0x185e7c0be66e49f2,
-    .version = "3.2.2",
+    .version = "2.14.4",
     .minimum_zig_version = "0.14.0",
     .dependencies = .{
         .fastdds = .{
-            .url = "https://github.com/eprosima/Fast-DDS/archive/22e61ddbf1877e213e5f5facb4fb0a9580b7ba91.tar.gz", // 3.2.2
-            .hash = "N-V-__8AAFA4KgQlZ1RZmcM110E7O-fE1UzAP-sBdht_WcWX",
+            .url = "https://github.com/eprosima/Fast-DDS/archive/tags/v2.14.4.tar.gz",
+            .hash = "N-V-__8AAJqvzgIXeSq1R0gAZUm44g4Id_yr9eS9FKajUlTr",
         },
         .fastcdr = .{
             .url = "https://github.com/JacobCrabill/zig-Fast-CDR/archive/ef20d049e2f86dcf5dfe7616b066c6e738c43809.tar.gz",
@@ -19,8 +19,8 @@
         // Submodules of Fast-DDS
         // The Zig package manager doesn't know about submodules, so we have to include them ourselves
         .asio = .{
-            .url = "https://github.com/chriskohlhoff/asio/archive/tags/asio-1-31-0.tar.gz",
-            .hash = "N-V-__8AAJaH8wCed0y89IqEQH-ft_uWy1pXG0F2_Q8VauVW",
+            .url = "https://github.com/chriskohlhoff/asio/archive/tags/asio-1-18-1.tar.gz",
+            .hash = "N-V-__8AALhXvAAj4J8clvUvx7wdvVIKKudCbWvwinMEAdzS",
         },
         .tinyxml2 = .{
             .url = "https://github.com/leethomason/tinyxml2/archive/tags/6.0.0.tar.gz",
