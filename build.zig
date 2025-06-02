@@ -15,6 +15,7 @@ pub fn build(b: *std.Build) !void {
         .optimize = optimize,
         .link_libc = true,
         .link_libcpp = true,
+        .pic = true,
     };
 
     const upstream = b.dependency("fastdds", .{});
@@ -40,6 +41,7 @@ pub fn build(b: *std.Build) !void {
         .flags = &.{"--std=c++11"},
     });
     tinyxml2.addIncludePath(tinyxml.path(""));
+    tinyxml2.installHeadersDirectory(tinyxml.path("."), "", .{});
     b.installArtifact(tinyxml2);
 
     // ---- Internal Libraries -------------------------------------------------
@@ -79,7 +81,7 @@ pub fn build(b: *std.Build) !void {
         .HAVE_CXX11 = 1,
         .FASTDDS_IS_BIG_ENDIAN_TARGET = is_bigendian,
         .HAVE_SECURITY = 0, // ?
-        .HAVE_SQLITE3 = 0,
+        .HAVE_SQLITE3 = 1,
         .USE_THIRDPARTY_SHARED_MUTEX = 0,
         .TLS_FOUND = 0,
         .HAVE_STRICT_REALTIME = 0, // ?
@@ -109,9 +111,37 @@ pub fn build(b: *std.Build) !void {
             "-Wno-unknown-pragmas",
         },
     });
+    fastdds.addCSourceFile(.{
+        .file = upstream.path("src/cpp/rtps/persistence/sqlite3.c"),
+        .flags = &.{ "-Wall", "-Wextra", "-Wpedantic" },
+    });
     fastdds.installHeadersDirectory(upstream.path("include"), "", .{ .include_extensions = &.{ ".h", ".hpp" } });
 
     b.installArtifact(fastdds);
+
+    // Unit Tests
+    const memtest = b.addExecutable(.{
+        .name = "memory_test",
+        .root_module = b.createModule(std_mod_options),
+    });
+    memtest.addCSourceFiles(.{
+        .root = upstream.path("test/profiling"),
+        .files = &.{
+            "MemoryTestPublisher.cpp",
+            "MemoryTestSubscriber.cpp",
+            "MemoryTestTypes.cpp",
+            "main_MemoryTest.cpp",
+        },
+        .flags = &.{ "-std=c++11", "-pthread" },
+    });
+    memtest.addIncludePath(upstream.path("test/profiling"));
+    memtest.addIncludePath(asio.path("asio/include"));
+    memtest.addIncludePath(upstream.path("thirdparty/optionparser"));
+    memtest.linkLibrary(fastcdr);
+    memtest.linkLibrary(fastdds);
+    memtest.linkLibrary(tinyxml2);
+
+    b.installArtifact(memtest);
 }
 
 const fastdds_source_files: []const []const u8 = &.{
@@ -212,6 +242,7 @@ const fastdds_source_files: []const []const u8 = &.{
     "rtps/transport/network/NetworkInterfaceWithFilter.cpp",
     "rtps/transport/PortBasedTransportDescriptor.cpp",
     "rtps/transport/shared_mem/SharedMemTransportDescriptor.cpp",
+    "rtps/transport/shared_mem/SharedMemTransport.cpp",
     "rtps/transport/tcp/RTCPMessageManager.cpp",
     "rtps/transport/tcp/TCPControlMessage.cpp",
     "rtps/transport/TCPAcceptor.cpp",
@@ -352,4 +383,17 @@ const fastdds_source_files: []const []const u8 = &.{
     "statistics/types/monitorservice_types.cxx",
     "statistics/types/monitorservice_typesv1.cxx",
     "statistics/types/monitorservice_typesPubSubTypes.cxx",
+
+    // DDSSQLFilters
+    "fastdds/topic/DDSSQLFilter/DDSFilterCompoundCondition.cpp",
+    "fastdds/topic/DDSSQLFilter/DDSFilterExpression.cpp",
+    "fastdds/topic/DDSSQLFilter/DDSFilterExpressionParser.cpp",
+    "fastdds/topic/DDSSQLFilter/DDSFilterFactory.cpp",
+    "fastdds/topic/DDSSQLFilter/DDSFilterField.cpp",
+    "fastdds/topic/DDSSQLFilter/DDSFilterParameter.cpp",
+    "fastdds/topic/DDSSQLFilter/DDSFilterPredicate.cpp",
+    "fastdds/topic/DDSSQLFilter/DDSFilterValue.cpp",
+
+    // SQLite3
+    "rtps/persistence/SQLite3PersistenceService.cpp",
 };

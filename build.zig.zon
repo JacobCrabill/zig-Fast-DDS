@@ -9,12 +9,12 @@
             .hash = "N-V-__8AAJqvzgIXeSq1R0gAZUm44g4Id_yr9eS9FKajUlTr",
         },
         .fastcdr = .{
-            .url = "https://github.com/JacobCrabill/zig-Fast-CDR/archive/ef20d049e2f86dcf5dfe7616b066c6e738c43809.tar.gz",
-            .hash = "zig_fastcdr-2.3.0-5tEjoEAKAABOQ72Spj9w0-r52F6OAWD5WWtN82yNS9Cs",
+            .url = "https://github.com/JacobCrabill/zig-Fast-CDR/archive/6498e9db4cda653d7786c6b8f51c20f78f9ffd69.tar.gz",
+            .hash = "zig_fastcdr-2.3.0-5tEjoFkKAAAEtD76sJsfl5ttGvKs9amihNhAuWRScumu",
         },
         .foonathan_memory = .{
-            .url = "https://github.com/JacobCrabill/zig-foonathan-memory/archive/9246d537ec6ab7d840b792e92259d511f3c7b3bd.tar.gz",
-            .hash = "zig_foonathan_memory-0.7.4-czH_JXk3AABBnvIlvqCOkTYN6LCU_GJX46bv6PgYjtej",
+            .url = "https://github.com/JacobCrabill/zig-foonathan-memory/archive/fa384ad7ae5b596dc37d669d4ef53b07f30a76d7.tar.gz",
+            .hash = "zig_foonathan_memory-0.7.4-czH_Jdg2AADs6m89O9-hCxW5Nyd5vp8pKIhfakYXun2n",
         },
         // Submodules of Fast-DDS
         // The Zig package manager doesn't know about submodules, so we have to include them ourselves
@@ -28,8 +28,6 @@
         },
     },
     .paths = .{
-        "src/",
-        "include/",
         "build.zig",
         "build.zig.zon",
     },
