@@ -38,7 +38,7 @@ pub fn build(b: *std.Build) !void {
     tinyxml2.addCSourceFiles(.{
         .root = tinyxml.path(""),
         .files = &.{"tinyxml2.cpp"},
-        .flags = &.{"--std=c++11"},
+        .flags = &.{ "--std=c++11", "-fPIC" },
     });
     tinyxml2.addIncludePath(tinyxml.path(""));
     tinyxml2.installHeadersDirectory(tinyxml.path("."), "", .{});
