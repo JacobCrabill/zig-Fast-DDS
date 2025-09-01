@@ -13,8 +13,8 @@
             .hash = "zig_fastcdr-2.3.0-5tEjoFkKAAAEtD76sJsfl5ttGvKs9amihNhAuWRScumu",
         },
         .foonathan_memory = .{
-            .url = "https://github.com/JacobCrabill/zig-foonathan-memory/archive/fa384ad7ae5b596dc37d669d4ef53b07f30a76d7.tar.gz",
-            .hash = "zig_foonathan_memory-0.7.4-czH_Jdg2AADs6m89O9-hCxW5Nyd5vp8pKIhfakYXun2n",
+            .url = "https://github.com/JacobCrabill/zig-foonathan-memory/archive/7c7c312ecef91933e374a2b9844b9e293b9fff06.tar.gz",
+            .hash = "zig_foonathan_memory-0.7.4-czH_JZM3AAA6YZAvgExZNoyHaeHeJ7Ips6tLV_2xZUzl",
         },
         // Submodules of Fast-DDS
         // The Zig package manager doesn't know about submodules, so we have to include them ourselves

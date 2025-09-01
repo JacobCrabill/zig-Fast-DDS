@@ -109,6 +109,7 @@ pub fn build(b: *std.Build) !void {
             "-Wno-deprecated-declarations",
             "-Wno-switch-bool",
             "-Wno-unknown-pragmas",
+            "-Wno-deprecated",
         },
     });
     fastdds.addCSourceFile(.{
